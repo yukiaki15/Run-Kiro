@@ -1,4 +1,5 @@
 #include "Base/Base.h"
+#include "Game/Player.h"
 
 void MainLoop(void) {
 	//--------------------------------------------------------------
@@ -84,7 +85,7 @@ void Init(void)
 	//ƒQ[ƒ€‹N“®‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
 	//-----------------------------------------------------
 	
-
+	ADD_RESOURCE("Player", CImage::CreateImage("Image/aruki.png", Player::_anim_data,));
 
 
 
