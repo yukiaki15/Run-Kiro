@@ -85,8 +85,8 @@ void Init(void)
 	//ƒQ[ƒ€‹N“®‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
 	//-----------------------------------------------------
 	
-	ADD_RESOURCE("Player", CImage::CreateImage("Image/aruki.png", Player::_anim_data,));
-
+	ADD_RESOURCE("Player", CImage::CreateImage("Image/aruku.png", Player::_anim_data,350,540));
+	new Player(CVector2D(400, 460));
 
 
 
