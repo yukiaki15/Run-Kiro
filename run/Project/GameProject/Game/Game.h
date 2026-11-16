@@ -3,6 +3,8 @@
 
 class Game : public Base
 {
+	int m_cnt;
+
 public:
 	Game();
 	~Game();

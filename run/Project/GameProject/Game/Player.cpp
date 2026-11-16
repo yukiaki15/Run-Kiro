@@ -5,6 +5,10 @@
 static TexAnim _run[] = {
 	{ 0,11 },
 	{ 1,11 },
+	{ 2,11 },
+	{ 3,11 },
+	{ 2,11 },
+	{ 1,11 },
 };
 TexAnimData Player::_anim_data[] = {
 	ANIMDATA(_run),
@@ -13,8 +17,9 @@ Player::Player(const CVector2D& pos) : Base(eType_Player)
 {
 	m_img = COPY_RESOURCE("Player", CImage);
 	m_pos = pos;
-	m_img.ChangeAnimation(0);
-	m_img.SetCenter(175, 270);
+	m_img.ChangeAnimation(eAnimRun);
+	//m_img.SetCenter(200, 425);
+	m_img.SetSize(400, 850);
 }
 void Player::Update()
 {

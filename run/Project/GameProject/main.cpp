@@ -1,5 +1,6 @@
 #include "Base/Base.h"
 #include "Game/Player.h"
+#include "Title/Title.h"
 
 void MainLoop(void) {
 	//--------------------------------------------------------------
@@ -84,10 +85,18 @@ void Init(void)
 	//‰Šú‰»‚Ì–½—ß‚ğ‘‚­
 	//ƒQ[ƒ€‹N“®‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
 	//-----------------------------------------------------
-	
-	ADD_RESOURCE("Player", CImage::CreateImage("Image/aruku.png", Player::_anim_data,350,540));
-	new Player(CVector2D(400, 460));
+	ADD_RESOURCE("Title", CImage::CreateImage("Image/Title.png"));
+	ADD_RESOURCE("kusa", CImage::CreateImage("Image/kusa.png"));
+	ADD_RESOURCE("waku", CImage::CreateImage("Image/haikei.png"));
 
+	ADD_RESOURCE("Player", CImage::CreateImage("Image/yonnmai.png", Player::_anim_data,400,850));
+
+	ADD_RESOURCE("Red", CImage::CreateImage("Image/aka.png"));
+	ADD_RESOURCE("Blue", CImage::CreateImage("Image/ao.png"));
+	ADD_RESOURCE("Green", CImage::CreateImage("Image/midori.png"));
+	ADD_RESOURCE("Yellow", CImage::CreateImage("Image/kiiro.png"));
+	
+	new Title();
 
 
 

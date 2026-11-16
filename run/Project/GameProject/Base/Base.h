@@ -8,6 +8,8 @@ enum {
     eType_Effect,
     eType_UI,
     eType_Scene,
+    eType_Title,
+    eType_Puzzle,
 };
 
 //èdóÕâ¡ë¨ìx
