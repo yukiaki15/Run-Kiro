@@ -9,6 +9,7 @@ enum {
     eType_UI,
     eType_Scene,
     eType_Title,
+    eType_ura,
     eType_Puzzle,
 };
 

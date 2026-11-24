@@ -20,8 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\Base.h" />
+    <ClInclude Include="Game\Fieds.h" />
     <ClInclude Include="Game\Field.h" />
     <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Game\Imo.h" />
     <ClInclude Include="Game\puzzle.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Global.h" />
@@ -29,8 +31,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\Base.cpp" />
-    <ClCompile Include="Game\Fied.cpp" />
+    <ClCompile Include="Game\Field.cpp" />
+    <ClCompile Include="Game\Fieds.cpp" />
     <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Game\Imo.cpp" />
     <ClCompile Include="Game\puzzle.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="main.cpp" />

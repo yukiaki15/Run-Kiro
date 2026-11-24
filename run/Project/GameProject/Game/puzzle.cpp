@@ -14,6 +14,7 @@ Puzzle::Puzzle() : Base(eType_Puzzle)
     m_color1 = rand() % 4 + 1;//(出てくる色を
     m_color2 = rand() % 4 + 1;//ランダムに出す)
 
+    m_kaitenn = 0;
     m_otiru = 0;//リセット
 
 
@@ -35,17 +36,32 @@ Puzzle::Puzzle() : Base(eType_Puzzle)
 
 void Puzzle::Update()
 {
+    int dx = 0;
+    int dy = 1;
+
+    //二個目のブロックの位置
+    if (m_kaitenn == 1) { dx = 1; dy = 0; }
+    else if (m_kaitenn == 2) { dx = 0; dy = 0; }
+    else if (m_kaitenn == 3) { dx = -1; dy = 0; }
+
     // 左キー
     if (PUSH(CInput::eLeft))
     {
-        int nextX = m_blockX - 1;
+        //移動した2個の座標計算
+        int x1 = m_blockX - 1;      //1個目の移動先の横座標
+        int x2 = m_blockX + dx - 1; //1個目の移動先の縦座標
+        int y1 = m_blockY;          //2個目の移動先の横座標
+        int y2 = m_blockY + dy;     //2個目の移動先の縦座標
 
-        // 左端ではないか確認
-        if (nextX >= 0)
+        //2個ともフィールドの中にいるかの確認
+        if (x1 >= 0 && x1 < 6 && 
+            x2 >= 0 && x2 < 6 && 
+            y1 >= 0 && y1 < 12 &&
+            y2 >= 0 && y2 < 12)
         {
-            // 上下両方のマスにブロックがないかの確認
-            if (m_field[m_blockY][nextX] == 0 &&
-                m_field[m_blockY - 1][nextX] == 0)
+            //移動先に固定されたブロックがないか
+            if (m_field[y1][x1] == 0 &&
+                m_field[y2][x2] == 0)
             {
                 m_blockX--;
             }
@@ -55,52 +71,143 @@ void Puzzle::Update()
     // 右キー
     if (PUSH(CInput::eRight))
     {
-        int nextX = m_blockX + 1;
+        //移動した2個の座標計算
+        int x1 = m_blockX + 1;      //1個目の移動先の横座標
+        int x2 = m_blockX + dx + 1; //1個目の移動先の縦座標
+        int y1 = m_blockY;          //2個目の移動先の横座標
+        int y2 = m_blockY + dy;     //2個目の移動先の縦座標
 
-        // 右端ではないか確認
-        if (nextX < 6)
+        //2個ともフィールドの中にいるかの確認
+        if (x1 >= 0 && x1 < 6 &&
+            x2 >= 0 && x2 < 6 &&
+            y1 >= 0 && y1 < 12 &&
+            y2 >= 0 && y2 < 12)
         {
-            // 上下両方のマスにブロックがないかの確認
-            if (m_field[m_blockY][nextX] == 0 &&
-                m_field[m_blockY - 1][nextX] == 0)
+            //移動先に固定されたブロックがないか
+            if (m_field[y1][x1] == 0 &&
+                m_field[y2][x2] == 0)
             {
                 m_blockX++;
             }
         }
     }
 
-    m_otiru++;
+    //Zで回転(壁抜き・回転の不具合〇)
+    if (PUSH(CInput::eButton1))
+    {
+        //回転した後の向き　％4であまりを求めて次の向きを考える
+        int nextRotation = (m_kaitenn + 1) % 4;
+
+        //回転後の2個目のブロックの位置を計算するための変数
+        int nextDx = 0;
+        int nextDy = -1;
+
+        //回転の方向を決めている
+        if (nextRotation == 1) { nextDx = 1; nextDy = 0; }
+        else if (nextRotation == 2) { nextDx = 0; nextDy = 1; }
+        else if (nextRotation == 3) { nextDx = -1; nextDy = 0; }
+
+        // 回転後の2個目のブロックの位置
+        int nextX = m_blockX + nextDx;
+        int nextY = m_blockY + nextDy;
+
+        // 2個目のブロックがフィールド内か確認
+        if (nextX >= 0 && nextX < 6 &&
+            nextY >= 0 && nextY < 12)
+        {
+            // 回転先にブロックがないか確認
+            if (m_field[nextY][nextX] == 0)
+            {
+                m_kaitenn = nextRotation;
+            }
+        }
+    }
+
+    // 回転後の向きをもう一度取得
+    //回転前の向きのまま落下しない様に
+    dx = 0;
+    dy = -1;
+
+    if (m_kaitenn == 1) { dx = 1; dy = 0; }
+    else if (m_kaitenn == 2) { dx = 0; dy = 1; }
+    else if (m_kaitenn == 3) { dx = -1; dy = 0; }
 
     if (PUSH(CInput::eDown))
     {
         while (true)
         {
-            int nextY = m_blockY + 1;
+            //2個のブロックが1マス下に移動したときの座標
+            int x1 = m_blockX;
+            int y1 = m_blockY + 1;
+            int x2 = m_blockX + dx;
+            int y2 = m_blockY + dy + 1;
 
-            if (nextY >= 12 || m_field[nextY][m_blockX] != 0)
-            {
+            //どちらかの移動先にブロックがあったら break で繰り返しを終了
+            if (x1 < 0 || x1 >= 6 || y1 < 0 || y1 >= 12 ||
+                x2 < 0 || x2 >= 6 || y2 < 0 || y2 >= 12)
                 break;
-            }
+            if (m_field[y1][x1] != 0 ||
+                m_field[y2][x2] != 0)
+                break;
 
+            //どちらも空いていれば1マス下に落下
             m_blockY++;
         }
     }
+
+    // 自動落下
+    m_otiru++;
 
     if (m_otiru >= 30)
     {
         m_otiru = 0;
 
-        // 1マス下にブロックがあるか確認
-        int nextY = m_blockY + 1;
+        int x1 = m_blockX;
+        int y1 = m_blockY + 1;
 
-        //下まで来たかの確認を次の場所にブロックがあるか
-        if (nextY >= 12 || m_field[nextY][m_blockX] != 0)
+        int x2 = m_blockX + dx;
+        int y2 = m_blockY + dy + 1;
+
+        // 2個とも下に移動できるか確認
+        bool canFall = true;
+
+        //どちらか一方でもフィールドの外に出ていたら、落下できない
+        if (x1 < 0 || x1 >= 6 || y1 < 0 || y1 >= 12 ||
+            x2 < 0 || x2 >= 6 || y2 < 0 || y2 >= 12)
         {
-            // 下ブロックを固定
-            m_field[m_blockY][m_blockX] = m_color1;
+            canFall = false;
+        }
+        //固定ブロックがないか確認
+        else if (m_field[y1][x1] != 0 ||
+            m_field[y2][x2] != 0)
+        {
+            canFall = false;
+        }
 
-            // 上ブロックを固定
-            m_field[m_blockY - 1][m_blockX] = m_color2;
+        //落下できるかどうか
+        if (canFall)
+        {
+            m_blockY++;
+        }
+        else
+        {
+            // 2個目のブロックの座標
+            int lockX = m_blockX + dx;
+            int lockY = m_blockY + dy;
+
+            // 2個ともフィールド内にあるか確認
+            if (m_blockX >= 0 && m_blockX < 6 &&
+                m_blockY >= 0 && m_blockY < 12 &&
+                lockX >= 0 && lockX < 6 &&
+                lockY >= 0 && lockY < 12)
+            {
+                // 1個目のブロックを固定
+                m_field[m_blockY][m_blockX] = m_color1;
+
+                // 2個目のブロックを固定
+                m_field[lockY][lockX] = m_color2;
+            }
+            
 
             // 次のブロックを出す
             m_blockY = 1;
@@ -108,13 +215,11 @@ void Puzzle::Update()
 
             m_color1 = rand() % 4 + 1;
             m_color2 = rand() % 4 + 1;
-        }
-        else
-        {
-            // 下に何もなければ落下
-            m_blockY++;
+
+            m_kaitenn = 0;
         }
     }
+
 }
 	
     void Puzzle::Draw()
@@ -153,22 +258,54 @@ void Puzzle::Update()
             }
         }
 
-        // 落下中の下ブロック
+        //横方向の回転量
+        int dx = 0;
+        //縦方向の回転量
+        int dy = 0;
+
+        // 回転方向によって上ブロックの位置を変える
+        if (m_kaitenn == 0)//縦
+        {
+            dx = 0;
+            dy = -1;
+        }
+        else if (m_kaitenn == 1)//横
+        {
+            dx = 1;
+            dy = 0;
+        }
+        else if (m_kaitenn == 2)//縦(逆)
+        {
+            dx = 0;
+            dy = 1;
+        }
+        else if (m_kaitenn == 3)//横(逆)
+        {
+            dx = -1;
+            dy = 0;
+        }
+
+        // 下ブロック
         m_img[m_color1 - 1].SetSize(BLOCK_SIZE, BLOCK_SIZE);
         m_img[m_color1 - 1].SetPos(
             CVector2D(
+                //横位置の計算
                 FIELD_X + m_blockX * BLOCK_SIZE,
                 FIELD_Y + m_blockY * BLOCK_SIZE
+                //基準ブロックの横位置＋何マス横にずらすか
+                //＊1マスの大きさ
             )
         );
         m_img[m_color1 - 1].Draw();
 
-        // 落下中の上ブロック
+        // もう一つのブロック
         m_img[m_color2 - 1].SetSize(BLOCK_SIZE, BLOCK_SIZE);
         m_img[m_color2 - 1].SetPos(
             CVector2D(
-                FIELD_X + m_blockX * BLOCK_SIZE,
-                FIELD_Y + (m_blockY - 1) * BLOCK_SIZE
+                //縦位置の計算
+                FIELD_X + (m_blockX + dx) * BLOCK_SIZE,
+                FIELD_Y + (m_blockY + dy) * BLOCK_SIZE
+     
             )
         );
         m_img[m_color2 - 1].Draw();

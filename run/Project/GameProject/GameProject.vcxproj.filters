@@ -20,6 +20,12 @@
     <ClInclude Include="Game\puzzle.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Fieds.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Imo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -35,10 +41,16 @@
     <ClCompile Include="Title\Title.cpp">
       <Filter>Title</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Fied.cpp">
+    <ClCompile Include="Game\Field.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Game\puzzle.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Fieds.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Imo.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>

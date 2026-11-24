@@ -1,6 +1,8 @@
 #include "Base/Base.h"
 #include "Game/Player.h"
 #include "Title/Title.h"
+#include "Game/Field.h"
+#include "Game/Imo.h"
 
 void MainLoop(void) {
 	//--------------------------------------------------------------
@@ -86,10 +88,11 @@ void Init(void)
 	//ÉQÅ[ÉÄãNìÆéûÇ…àÍìxÇæÇØåƒÇŒÇÍÇÈ
 	//-----------------------------------------------------
 	ADD_RESOURCE("Title", CImage::CreateImage("Image/Title.png"));
-	ADD_RESOURCE("kusa", CImage::CreateImage("Image/kusa.png"));
+	ADD_RESOURCE("kusa", CImage::CreateImage("Image/kigi.png", Field::_anim_data,0,0));
 	ADD_RESOURCE("waku", CImage::CreateImage("Image/haikei.png"));
-
+	ADD_RESOURCE("ura", CImage::CreateImage("Image/ura.png"));
 	ADD_RESOURCE("Player", CImage::CreateImage("Image/yonnmai.png", Player::_anim_data,400,850));
+	ADD_RESOURCE("Imo", CImage::CreateImage("Image/imo.png", Imo::_anim_data, 400, 850));
 
 	ADD_RESOURCE("Red", CImage::CreateImage("Image/aka.png"));
 	ADD_RESOURCE("Blue", CImage::CreateImage("Image/ao.png"));

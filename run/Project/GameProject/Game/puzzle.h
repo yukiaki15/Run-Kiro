@@ -6,6 +6,7 @@ class Puzzle : public Base
     CImage m_img[4];
     int m_field[12][6];
     int m_otiru;
+    int m_kaitenn;
 
     const int BLOCK_SIZE = 75;
     const int FIELD_X = 1215;
