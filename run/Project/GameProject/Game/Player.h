@@ -5,16 +5,16 @@ class Player : public Base
 {
     CImage m_img;
 
-    enum 
+    enum
     {
         eAnimRun,
     };
 
 public:
-    Player(const CVector2D& pos);
+    Player(const CVector2D& pos, int character);
+
     void Update();
     void Draw();
-    void Collision(Base* b);
 
     static TexAnimData _anim_data[];
 };

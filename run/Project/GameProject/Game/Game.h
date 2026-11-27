@@ -3,10 +3,11 @@
 
 class Game : public Base
 {
+	int m_character;
 	int m_cnt;
 
 public:
-	Game();
+	Game(int character);
 	~Game();
 	void Update();
 };

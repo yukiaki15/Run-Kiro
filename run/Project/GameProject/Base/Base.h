@@ -1,15 +1,16 @@
 #pragma once
 enum {
+    eType_ura,
     eType_Field,
-    eType_Door,
     eType_AreaChange,
     eType_Player,
     eType_Player_run,
+    eType_Door,
     eType_Effect,
     eType_UI,
     eType_Scene,
     eType_Title,
-    eType_ura,
+    eType_Homu,
     eType_Puzzle,
 };
 

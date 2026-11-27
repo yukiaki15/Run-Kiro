@@ -23,8 +23,8 @@
     <ClInclude Include="Game\Fieds.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Imo.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="Title\Homu.h">
+      <Filter>Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -50,8 +50,8 @@
     <ClCompile Include="Game\Fieds.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Imo.cpp">
-      <Filter>Game</Filter>
+    <ClCompile Include="Title\Homu.cpp">
+      <Filter>Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

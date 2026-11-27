@@ -5,12 +5,14 @@
 #include "Game/puzzle.h"  
 #include "Game/Fieds.h"
 
-Game::Game() : Base(eType_Scene)
+Game::Game(int character) : Base(eType_Scene)
 {
+    m_character = character;
+
+    new Puzzle();
     new Fieds(CVector2D(1460,540));
     new Field(CVector2D(0, 0));
-    new Player(CVector2D(400, 200));
-    new Puzzle();
+    new Player(CVector2D(400, 200), m_character);
     m_cnt = 0;
 }
 Game::~Game()

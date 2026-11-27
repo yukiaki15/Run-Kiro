@@ -13,13 +13,25 @@ static TexAnim _run[] = {
 TexAnimData Player::_anim_data[] = {
 	ANIMDATA(_run),
 };
-Player::Player(const CVector2D& pos) : Base(eType_Player)
+Player::Player(const CVector2D& pos, int character)
+    : Base(eType_Player)
 {
-	m_img = COPY_RESOURCE("Player", CImage);
-	m_pos = pos;
-	m_img.ChangeAnimation(eAnimRun);
-	//m_img.SetCenter(200, 425);
-	m_img.SetSize(400, 850);
+    if (character == 0)
+    {
+        m_img = COPY_RESOURCE("Player", CImage);
+    }
+    else if (character == 1)
+    {
+        m_img = COPY_RESOURCE("Imo", CImage);
+    }
+    else if (character == 2)
+    {
+        m_img = COPY_RESOURCE("Tako", CImage);
+    }
+
+    m_pos = pos;
+    m_img.ChangeAnimation(eAnimRun);
+    m_img.SetSize(400, 850);
 }
 void Player::Update()
 {
@@ -31,8 +43,4 @@ void Player::Draw()
 	//m_img.SetPos(GetScreenPos(m_pos));
 	m_img.SetPos(m_pos);
 	m_img.Draw();
-}
-void Player::Collision(Base* b)
-{
-
 }

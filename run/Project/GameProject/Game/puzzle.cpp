@@ -36,13 +36,25 @@ Puzzle::Puzzle() : Base(eType_Puzzle)
 
 void Puzzle::Update()
 {
+    // 2個目のブロックの位置
     int dx = 0;
-    int dy = 1;
+    int dy = -1;
 
-    //二個目のブロックの位置
-    if (m_kaitenn == 1) { dx = 1; dy = 0; }
-    else if (m_kaitenn == 2) { dx = 0; dy = 0; }
-    else if (m_kaitenn == 3) { dx = -1; dy = 0; }
+    if (m_kaitenn == 1)
+    {
+        dx = 1;
+        dy = 0;
+    }
+    else if (m_kaitenn == 2)
+    {
+        dx = 0;
+        dy = 1;
+    }
+    else if (m_kaitenn == 3)
+    {
+        dx = -1;
+        dy = 0;
+    }
 
     // 左キー
     if (PUSH(CInput::eLeft))
